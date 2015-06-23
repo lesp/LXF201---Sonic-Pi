@@ -1,0 +1,31 @@
+live_loop :beat do
+  sleep 0.5
+  sample :bd_boom, rate: 1, amp: 6
+end
+
+with_fx :reverb, room: 1  do
+  live_loop :melody do
+    use_synth :beep
+    use_random_seed 66678
+    sound = (scale :g3, :major_pentatonic, num_octaves: 3)
+    16.times do
+      play sound.choose, detune: 6, release: 0.1, amp: 0.5,  cutoff: rrand(70, 80)
+      sleep 0.125
+    end
+  end
+end
+
+
+with_fx :ixi_techno do
+  live_loop :ambience do
+    8.times do
+      use_synth :hollow
+      play :c3, amp: 0.5
+      sleep 1
+      8.times do
+        sample :ambi_choir, rate: 1, amp: 0.5
+        sleep 1
+      end
+    end
+  end
+end
